@@ -37,7 +37,7 @@ class Bot(commands.Bot):
         self._intents = Intents.default()
         self._intents.message_content = True
 
-        super().__init__(command_prefix=config.bot.default_command_prefix, intents=self._intents)
+        super().__init__(command_prefix=config.bot.default_command_prefix, intents=self._intents, help_command=None)
 
         self.db = sql.connect(config.database_file_name)
         cursor = self.db.cursor()
@@ -51,6 +51,13 @@ class Bot(commands.Bot):
         log.info("Logged in as {} ({})".format(self.user.name, self.user.id))
 
 bot = Bot()
+
+#----------------------------------#
+# Loading Cogs
+#----------------------------------#
+
+from cogs.help import HelpCog
+bot.add_cog(HelpCog(bot, bot.db))
 
 #----------------------------------#
 # Running the Bot

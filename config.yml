@@ -2,3 +2,9 @@ bot:
   default_command_prefix: "!"
 
 database_file_name: "database.db"
+
+commands:
+  help:
+    name: "help"
+    description: "Shows this help message."
+    usage: "!help - /help"
