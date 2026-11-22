@@ -29,7 +29,7 @@ from os import getenv
 config: ConfigObject = create_config()
 
 # Initialize logger for 
-log = Logger("logs")
+log = Logger("logsDashboard")
 
 #----------------------------------#
 # Defining the Dashboard App       #
@@ -44,6 +44,14 @@ app.config["DISCORD_REDIRECT_URI"] = getenv("REDIRECT_URI")
 app.config["DISCORD_BOT_TOKEN"] = getenv("BOT_TOKEN")
 
 discord = DiscordOAuth2Session(app)
+
+#----------------------------------#
+# Blueprints                       #
+#----------------------------------#
+
+from routes.auth import create_auth_bp
+app.register_blueprint(create_auth_bp(discord, log, config), url_prefix='/')
+
 
 #----------------------------------#
 # Websocket client                 #

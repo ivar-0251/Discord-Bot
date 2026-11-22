@@ -1,5 +1,6 @@
 .vscode/
-logs/
+logsBot/
+logsDashboard/
 venv/
 .env
 database.db

@@ -29,7 +29,7 @@ from os import getenv
 config: ConfigObject = create_config()
 
 # Initialize logger for 
-log = Logger("logs")
+log = Logger("logsBot")
 
 #----------------------------------#
 # Defining the Bot                 #
@@ -60,7 +60,7 @@ bot = Bot()
 #----------------------------------#
 
 from cogs.help import HelpCog
-bot.add_cog(HelpCog(bot, bot.db))
+bot.add_cog(HelpCog(bot, bot.db, log))
 
 #----------------------------------#
 # WebSocket Server                 #

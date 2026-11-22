@@ -1,13 +1,13 @@
 import nextcord; from nextcord.ext import commands
 from botbase.yml import create_config, ConfigObject; config: ConfigObject = create_config()
-from botbase import Logger; log = Logger("logs")
-from botbase import random_color
+from botbase import random_color, Logger
 from sqlite3 import Connection
 
 class HelpCog(commands.Cog):
-    def __init__(self, bot: commands.Bot, db: Connection):
+    def __init__(self, bot: commands.Bot, db: Connection, log: Logger):
         self.bot = bot
         self.db = db
+        self.log = log
 
     def __get_help_embed(self) -> nextcord.Embed:
         embed = nextcord.Embed(
