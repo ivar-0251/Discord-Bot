@@ -13,6 +13,9 @@ from botbase import Logger, random_color
 from botbase.yml import create_config, ConfigObject
 
 import sqlite3 as sql
+import json, sys, asyncio, os
+
+from websockets.legacy.server import serve
 
 #----------------------------------#
 # Initialize environment variables
@@ -60,8 +63,36 @@ from cogs.help import HelpCog
 bot.add_cog(HelpCog(bot, bot.db))
 
 #----------------------------------#
+# WebSocket Server
+#----------------------------------#
+
+# Listen for incoming WebSocket connections
+async def websocket_handler(websocket):
+    async for message in websocket:
+        data: dict = json.loads(message)
+        log.debug("Received WebSocket message with type: {}".format(data["type"]))
+
+        # await websocket.send(json.dumps())
+
+# Create a function to start the WebSocket server
+async def main():
+    async with serve(websocket_handler, config.websocket_host, config.websocket_port):
+        log.info("WebSocket server started on ws://{}:{}".format(config.websocket_host, config.websocket_port))
+        await asyncio.Future()  # Run forever
+
+#----------------------------------#
 # Running the Bot
 #----------------------------------#
 
+async def run_all():
+    await asyncio.gather(
+        main(),
+        bot.start(getenv("BOT_TOKEN"))
+    )
+
 if __name__ == "__main__":
-    bot.run(getenv("BOT_TOKEN"))
+    try:
+        asyncio.run(run_all())
+    except KeyboardInterrupt:
+        log.warning("Bot is shutting down...")
+        sys.exit(0)

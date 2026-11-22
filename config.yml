@@ -1,10 +1,16 @@
 bot:
   default_command_prefix: "!"
+  default_language: "nl"
+  default_color: "#ff0000"
 
 database_file_name: "database.db"
+
+websocket_host: "localhost"
+websocket_port: 6001
 
 commands:
   help:
     name: "help"
-    description: "Shows this help message."
+    description_en: "Shows this help message."
+    description_nl: "Laat dit bericht zien."
     usage: "!help - /help"
