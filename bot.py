@@ -3,7 +3,7 @@
 # Author: ivar.0251 | ikoldewijn.nl
 
 #----------------------------------#
-# Imports
+# Imports                          #
 #----------------------------------#
 
 from nextcord import Embed, Intents, Interaction
@@ -18,7 +18,7 @@ import json, sys, asyncio, os
 from websockets.legacy.server import serve
 
 #----------------------------------#
-# Initialize environment variables
+# Initialize environment variables #
 #----------------------------------#
 
 # Initialize environment variables from .env file
@@ -32,7 +32,7 @@ config: ConfigObject = create_config()
 log = Logger("logs")
 
 #----------------------------------#
-# Defining the Bot
+# Defining the Bot                 #
 #----------------------------------#
 
 class Bot(commands.Bot):
@@ -56,14 +56,14 @@ class Bot(commands.Bot):
 bot = Bot()
 
 #----------------------------------#
-# Loading Cogs
+# Loading Cogs                     #
 #----------------------------------#
 
 from cogs.help import HelpCog
 bot.add_cog(HelpCog(bot, bot.db))
 
 #----------------------------------#
-# WebSocket Server
+# WebSocket Server                 #
 #----------------------------------#
 
 # Listen for incoming WebSocket connections
@@ -81,7 +81,7 @@ async def main():
         await asyncio.Future()  # Run forever
 
 #----------------------------------#
-# Running the Bot
+# Running the Bot                  #
 #----------------------------------#
 
 async def run_all():
